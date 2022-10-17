@@ -3,9 +3,9 @@
 {% block title %}Material index{% endblock %}
 
 {% block body %}
-    <h1>Material index</h1>
-    <a href="{{ path('app_material_new') }}">Créer un nouveau matériel</a>
-
+    <h1 class="rouge">Liste des équipements</h1>
+    <a class="ajouter" href="{{ path('app_material_new') }}">Ajouter un nouveau matériel</a>
+    {% if materials %}
     <table class="table">
         <thead>
             <tr>
@@ -15,23 +15,24 @@
             </tr>
         </thead>
         <tbody>
-        {% for material in materials %}
-            <tr>
-                <td>{{ material.id }}</td>
-                <td>{{ material.name }}</td>
-                <td>{{ material.quantity }}</td>
-                <td>
-                    {# <a href="{{ path('app_material_show', {'id': material.id}) }}">show</a> #}
-                    <a href="{{ path('app_material_edit', {'id': material.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for material in materials %}
+                <tr>
+                    {# <td>{{ material.id }}</td> #}
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.quantity }}</td>
+                    <td>
+                        {# <a href="{{ path('app_material_show', {'id': material.id}) }}">show</a> #}
+                        <a href="{{ path('app_material_edit', {'id': material.id}) }}">edit</a>
+                         {{ include('material/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+
+    {% endif %}
+
+    
 
     
 {% endblock %}

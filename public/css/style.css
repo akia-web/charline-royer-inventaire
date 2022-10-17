@@ -1,0 +1,14 @@
+body{
+    font-size: 20px;
+}
+
+.ajouter{
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 7px;
+    -webkit-box-shadow: 7px 7px 12px -2px #001457; 
+    box-shadow: 7px 7px 12px -2px #001457;
+    margin-bottom: 4em;
+}
