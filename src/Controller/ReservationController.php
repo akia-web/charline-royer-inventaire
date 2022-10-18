@@ -31,8 +31,11 @@ class ReservationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reservation->setEmpruntDate(new \DateTime());
             $reservation->setIsRendered(false);
+            $quantity = $reservation->getMaterial()->getQuantity()-1;
+        
+            $reservation->getMaterial()->setQuantity($quantity);
             $reservationRepository->save($reservation, true);
-
+           
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -53,11 +56,24 @@ class ReservationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
     {
+        
+        $ancienReservation = $reservationRepository->find($reservation->getId());
+        $isRendered = $ancienReservation->isIsRendered();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
+        $quantity = $reservation->getMaterial()->getQuantity();
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $reservationRepository->save($reservation, true);
+            if($isRendered != $reservation->isIsRendered()){
+
+                if($reservation->isIsRendered()){
+                    $reservation->getMaterial()->setQuantity($quantity + 1);
+                }else{
+                    $reservation->getMaterial()->setQuantity($quantity - 1);
+                }                 
+            }
+
+             $reservationRepository->save($reservation, true);
 
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
