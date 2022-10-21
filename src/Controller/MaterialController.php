@@ -62,7 +62,7 @@ class MaterialController extends AbstractController
 
         return $this->renderForm('material/edit.html.twig', [
             'material' => $material,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 

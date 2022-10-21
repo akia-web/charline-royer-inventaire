@@ -1,14 +1,42 @@
-body{
-    font-size: 20px;
+body {
+  font-size: 20px;
 }
 
-.ajouter{
-    background-color: blue;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 7px;
-    -webkit-box-shadow: 7px 7px 12px -2px #001457; 
-    box-shadow: 7px 7px 12px -2px #001457;
-    margin-bottom: 4em;
+.ajouter {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 7px;
+  -webkit-box-shadow: 7px 7px 12px -2px #001457;
+  box-shadow: 7px 7px 12px -2px #001457;
+  margin-bottom: 4em;
 }
+.navbarHead {
+  display: flex;
+  gap: 20px;
+  background-color: aliceblue;
+  padding: 10px;
+  margin-bottom: 2em;
+  margin: 1em auto;
+  max-width: 800px;
+  width: 95%;
+  font: 18px/1.5 sans-serif;
+}
+.navbarHead a {
+  color: rgb(85, 153, 193);
+  text-decoration: none;
+}
+
+.example-wrapper {
+  margin: 1em auto;
+  max-width: 800px;
+  width: 95%;
+  font: 18px/1.5 sans-serif;
+}
+
+.label {
+  display: block;
+}
+
+

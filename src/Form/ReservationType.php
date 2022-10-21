@@ -6,6 +6,8 @@ use App\Entity\Material;
 use App\Entity\Reservation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +17,13 @@ class ReservationType extends AbstractType
     {
         $builder
             // ->add('empruntDate')
-            ->add('rendered')
+            ->add('rendered', DateTimeType::class)
             ->add('email')
             ->add('isRendered')
             ->add('material',  EntityType::class, [
                 'class' => Material::class
             ] )
+            ->add('Enregistrer', SubmitType::class)
         ;
     }
 
