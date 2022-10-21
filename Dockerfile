@@ -18,7 +18,6 @@ RUN sudo apt install symfony-cli
 # RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 
-WORKDIR /var/www/html
 COPY . .
 
 RUN composer install
