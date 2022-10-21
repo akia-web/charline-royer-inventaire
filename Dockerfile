@@ -20,4 +20,6 @@ RUN sudo apt install symfony-cli
 
 WORKDIR /var/www/html
 COPY . .
+
+RUN composer install
 RUN chown www-data:www-data -R .
