@@ -33,11 +33,7 @@ class MaterialType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('Enregistrer', SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-primary'
-                )
-            ))
+            
         ;
     }
 

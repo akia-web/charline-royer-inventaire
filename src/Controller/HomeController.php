@@ -13,6 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ReservationRepository $reservationRepository): Response
     {
+        $_SESSION['nouveau'] = 1;
         $result = [];
         $list = $reservationRepository->findBy(array('isRendered' => false));
        

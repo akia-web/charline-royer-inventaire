@@ -17,10 +17,9 @@ body {
   gap: 20px;
   background-color: aliceblue;
   padding: 10px;
-  margin-bottom: 2em;
-  margin: 1em auto;
-  max-width: 800px;
-  width: 95%;
+  margin: 1em auto 5em auto;
+
+  width: 85%;
   font: 18px/1.5 sans-serif;
 }
 .navbarHead a {
@@ -28,15 +27,13 @@ body {
   text-decoration: none;
 }
 
-.example-wrapper {
-  margin: 1em auto;
-  max-width: 800px;
-  width: 95%;
-  font: 18px/1.5 sans-serif;
-}
-
 .label {
   display: block;
 }
+.space-ch {
+  gap: 20px;
+}
 
-
+.title{
+  text-align: center;
+}
