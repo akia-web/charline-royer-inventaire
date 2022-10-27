@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Service\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationRepository $reservationRepository): Response
+    public function new(Request $request, ReservationRepository $reservationRepository, MailService $mailService): Response
     {
         $_SESSION['nouveau'] = 1;
         $reservation = new Reservation();
@@ -37,6 +38,25 @@ class ReservationController extends AbstractController
             $reservation->getMaterial()->setQuantity($quantity);
             $reservationRepository->save($reservation, true);
            
+            $dateEmprunt = $reservation->getEmpruntDate()->format('d-m-Y H:i');
+            $destinataire = $reservation->getEmail();
+            $dateRendu = $reservation->getRendered()->format('d-m-Y H:i');
+            $materiel = $reservation->getMaterial()->getName();
+            $message = "
+            <h1>Nous confirmons l'emprunt du matériel : $materiel</h1>
+            <p>Informations : 
+                <ul>
+                    <li>Matériel : $materiel</li>
+                    <li>Date d'emprunt : $dateEmprunt</li>
+                    <li>Date de retour du matériel : $dateRendu</li>
+                </ul>       
+            </p>
+            <p> Merci de prendre soin de notre matériel
+           
+            ";
+            $mailService->envoisMail($destinataire, "Réservation : $materiel ", $message);
+
+            $this->addFlash("success", "L'emprunt de $materiel pour $destinataire à bien été enregistré'" );
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
 

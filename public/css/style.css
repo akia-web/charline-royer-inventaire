@@ -1,5 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-size: 20px;
+  font-family: "Poppins", sans-serif;
 }
 
 .ajouter {
@@ -16,8 +23,8 @@ body {
   display: flex;
   gap: 20px;
   background-color: aliceblue;
-  padding: 10px;
-  margin: 1em auto 5em auto;
+  padding: 20px;
+  margin: 0 auto;
 
   width: 85%;
   font: 18px/1.5 sans-serif;
@@ -27,13 +34,56 @@ body {
   text-decoration: none;
 }
 
+.navbarHead a:hover {
+  color: rgb(19, 53, 73);
+  transition: all 0.2s ease-in-out;
+}
+
 .label {
   display: block;
+}
+.label2 {
+  margin-right: 20px;
 }
 .space-ch {
   gap: 20px;
 }
 
-.title{
+.title {
   text-align: center;
+  font-family: "Paytone One", sans-serif;
+}
+
+thead {
+  border: 1px solid black;
+}
+thead th {
+  border: 1px solid black;
+}
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+  border: 1px solid lightgray;
+}
+
+#close {
+  font-weight: bold;
+  text-align: right;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+#close:hover {
+  color: black;
+}
+.message {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.heure {
+  text-align: left;
 }

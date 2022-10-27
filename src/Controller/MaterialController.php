@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/material')]
+#[Route('/materiel')]
 class MaterialController extends AbstractController
 {
     #[Route('/', name: 'app_material_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class MaterialController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_material_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'app_material_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MaterialRepository $materialRepository): Response
     {
         $material = new Material();
@@ -29,7 +29,9 @@ class MaterialController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $name = $material->getName();
             $materialRepository->save($material, true);
+            $this->addFlash("success", "Le matériel $name à bien été créer" );
 
             return $this->redirectToRoute('app_material_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -55,7 +57,9 @@ class MaterialController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $name = $material->getName();
             $materialRepository->save($material, true);
+            $this->addFlash("success", "Le matériel $name à bien été modifié" );
 
             return $this->redirectToRoute('app_material_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -70,6 +74,8 @@ class MaterialController extends AbstractController
     public function delete(Request $request, Material $material, MaterialRepository $materialRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$material->getId(), $request->request->get('_token'))) {
+            $name = $material->getName();
+            $this->addFlash("success", "Le matériel $name à bien été supprimé" );
             $materialRepository->remove($material, true);
         }
 

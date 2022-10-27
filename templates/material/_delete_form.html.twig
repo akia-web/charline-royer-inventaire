@@ -1,4 +1,19 @@
-<form method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">
-    <button class="btn btn-danger">Delete</button>
+<form id="{{material.name}}-{{material.id}}" method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" >
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">  
 </form>
+
+<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}','{{material.name}}-{{material.id}}')">Supprimer</button>
+<script>
+function text(materiel, idFormulaire){
+    const text = document.querySelector('.textModal');
+    const titre = document.querySelector('.modal-title');
+    const id = document.querySelector('.idFormulaireBouton')
+   
+    text.innerText = "Voulez-vous supprimer le matériel "+ materiel + "?"
+    titre.innerText = "Suppression d'un matériel";
+    id.value = idFormulaire;
+
+}
+
+
+</script>

@@ -4,13 +4,13 @@
 
 {% block body %}
 
-    <h1 class="title mb-5">Liste des équipements</h1>
+    <h1 class="title mb-5 mt-5">Liste des équipements</h1>
     <div class="d-flex flex-row-reverse mb-4">
     <a class="btn btn-primary " href="{{ path('app_material_new') }}">Ajouter un nouveau matériel</a>
     </div>
     
     {% if materials %}
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -25,8 +25,8 @@
                     <td>{{ material.name }}</td>
                     <td>{{ material.quantity }}</td>
                     <td>
-                        <div class="d-flex align-items-center space-ch">
-                        <a href="{{ path('app_material_edit', {'id': material.id}) }}"><button class="btn btn-primary">edit </button> </a>
+                        <div class="d-flex align-items-center justify-content-center space-ch">
+                        <a href="{{ path('app_material_edit', {'id': material.id}) }}"><button class="btn btn-primary">éditer </button> </a>
                          {{ include('material/_delete_form.html.twig') }}
                         </div>
                         

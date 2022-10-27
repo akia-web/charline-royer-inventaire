@@ -21,7 +21,7 @@ class MaterialType extends AbstractType
                     'class' => 'label',
                 ],
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control mb-3'
                 )
             ))
             ->add('quantity', IntegerType::class,array(
@@ -30,7 +30,8 @@ class MaterialType extends AbstractType
                     'class' => 'label',
                 ],
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control mb-3',
+                    'min'=> 0
                 )
             ))
             

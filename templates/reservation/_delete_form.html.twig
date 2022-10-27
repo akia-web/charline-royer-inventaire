@@ -1,4 +1,19 @@
-<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-    <button class="btn">Delete</button>
+<form id="reservation-{{reservation.id}}" method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" >
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">  
 </form>
+
+<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.material.name}}','{{reservation.email}}','reservation-{{reservation.id}}')">Supprimer</button>
+<script>
+function text(materiel, eleve, idFormulaire){
+    const text = document.querySelector('.textModal');
+    const titre = document.querySelector('.modal-title');
+    const id = document.querySelector('.idFormulaireBouton')
+   
+    text.innerText = "Voulez-vous supprimer la réservation de " + eleve + " pour sa réservation du matériel : " + materiel + " ?";
+    titre.innerText = "Suppression d'une réservation";
+    id.value = idFormulaire;
+
+}
+
+
+</script>

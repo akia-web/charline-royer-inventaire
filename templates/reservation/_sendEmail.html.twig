@@ -1,0 +1,19 @@
+<form id="email-{{reservation.id}}" method="post" action="{{ path('app_emailrecap', {'id': reservation.id}) }}" >
+
+</form>
+ <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.email}}','email-{{reservation.id}}')">📧</button>
+    <!-- Modal -->
+
+<script>
+function text(eleve, idFormulaire){
+    const text = document.querySelector('.textModal');
+    const titre = document.querySelector('.modal-title');
+    const id = document.querySelector('.idFormulaireBouton')
+
+    console.log(eleve)
+    text.innerText = "Voulez-vous envoyer un mail de relance à "+ eleve + "?"
+    titre.innerText = "Envois mail de relance";
+    id.value = idFormulaire;
+}
+
+</script>
