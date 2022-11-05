@@ -2,58 +2,74 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Material;
 use App\Entity\Reservation;
+use App\Repository\MaterialRepository;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ReservationControllerTest extends WebTestCase
 {
-    // private KernelBrowser $client;
-    // private ReservationRepository $repository;
-    // private string $path = '/reservation/';
+    private KernelBrowser $client;
+    private ReservationRepository $repository; 
+    // private MaterialRepository $materialRepository;
+    private string $path = '/reservation/';
 
-    // protected function setUp(): void
-    // {
-    //     $this->client = static::createClient();
-    //     $this->repository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
+    protected function setUp(): void
+    {
+        $this->client = static::createClient();
+        $this->repository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
+        $this->materialRepository = static::getContainer()->get('doctrine')->getRepository(Material::class);
 
-    //     foreach ($this->repository->findAll() as $object) {
-    //         $this->repository->remove($object, true);
-    //     }
-    // }
+        foreach ($this->repository->findAll() as $object) {
+            $this->repository->remove($object, true);
+        }
+        // foreach ($this->materialRepository->findAll() as $object) {
+        //     $this->materialRepository->remove($object, true);
+        // }
+    }
 
-    // public function testIndex(): void
-    // {
-    //     $crawler = $this->client->request('GET', $this->path);
+    public function testIndex(): void
+    {
+        $crawler = $this->client->request('GET', $this->path);
 
-    //     self::assertResponseStatusCodeSame(200);
-    //     self::assertPageTitleContains('Reservation index');
+        self::assertResponseStatusCodeSame(200);
+        // self::assertPageTitleContains('Reservation index');
 
-    //     // Use the $crawler to perform additional assertions e.g.
-    //     // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
-    // }
+        // Use the $crawler to perform additional assertions e.g.
+        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+    }
 
     // public function testNew(): void
     // {
-    //     $originalNumObjectsInRepository = count($this->repository->findAll());
+    //     $fixture = new Material();
+    //     $fixture->setName('p');
+    //     $fixture->setQuantity(18);
+    //     $this->materialRepository->save($fixture, true);
 
-    //     $this->markTestIncomplete();
+    //     $originalNumObjectsInRepository = count($this->repository->findAll());
+        
+    //     $materiels = $this->materialRepository->findAll();
+    //     // self::assertNotEquals(0, $materiels[0]->getQuantity());
+
+    //     // $this->markTestIncomplete();
     //     $this->client->request('GET', sprintf('%snew', $this->path));
 
     //     self::assertResponseStatusCodeSame(200);
+ 
 
-    //     $this->client->submitForm('Save', [
-    //         'reservation[empruntDate]' => 'Testing',
-    //         'reservation[rendered]' => 'Testing',
-    //         'reservation[email]' => 'Testing',
-    //         'reservation[isRendered]' => 'Testing',
-    //         'reservation[material]' => 'Testing',
+    //     $this->client->submitForm('Enregistrer', [
+    //         'reservation[email]' => 'ch.royer15@gmail.com',
+    //         'reservation[rendered]' => "2022-12-30 12:10:00",
+    //         'reservation[material]' => $materiels[0]->getId(),
     //     ]);
 
-    //     self::assertResponseRedirects('/reservation/');
+    //     // self::assertResponseRedirects('/reservation/');
 
     //     self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
+
+    //     $this->materialRepository->remove($materiels[0], true);
     // }
 
     // public function testShow(): void

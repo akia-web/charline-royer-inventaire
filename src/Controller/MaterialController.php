@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Material;
 use App\Form\MaterialType;
 use App\Repository\MaterialRepository;
+use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,8 +72,14 @@ class MaterialController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_material_delete', methods: ['POST'])]
-    public function delete(Request $request, Material $material, MaterialRepository $materialRepository): Response
+    public function delete(Request $request, Material $material, MaterialRepository $materialRepository, ReservationRepository $reservationRepository): Response
     {
+        $reservationsDelete = $reservationRepository->findBy(array('material' => $material->getId()));
+ 
+        foreach($reservationsDelete as $item){
+            $reservationRepository->remove($item, true);
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$material->getId(), $request->request->get('_token'))) {
             $name = $material->getName();
             $this->addFlash("success", "Le matériel $name à bien été supprimé" );

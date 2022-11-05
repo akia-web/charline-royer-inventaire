@@ -1,10 +1,14 @@
 <form id="{{material.name}}-{{material.id}}" method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" >
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">  
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}','{{material.name}}-{{material.id}}')">Supprimer</button>
 </form>
 
-<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}','{{material.name}}-{{material.id}}')">Supprimer</button>
+
+
+
 <script>
-function text(materiel, idFormulaire){
+function text(materiel, idFormulaire, e){
+ 
     const text = document.querySelector('.textModal');
     const titre = document.querySelector('.modal-title');
     const id = document.querySelector('.idFormulaireBouton')
