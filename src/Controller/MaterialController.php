@@ -6,6 +6,7 @@ use App\Entity\Material;
 use App\Form\MaterialType;
 use App\Repository\MaterialRepository;
 use App\Repository\ReservationRepository;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +18,32 @@ class MaterialController extends AbstractController
     #[Route('/', name: 'app_material_index', methods: ['GET'])]
     public function index(MaterialRepository $materialRepository): Response
     {
+        $findMateriaux = $materialRepository->findAll();
+        $result = [];
+       
+        foreach($findMateriaux as $materiel){
+            $emailsResa = [];
+            $nbReservation = count($materiel->getReservations());
+            $mat = new stdClass();
+            $mat->id = $materiel->getId();
+            $mat->name = $materiel->getName();
+            $mat->quantity = $materiel->getQuantity();
+            $mat->nbReservation =$nbReservation;
+
+            if($nbReservation > 0){
+                
+                foreach($materiel->getReservations() as $resa){
+                    $item = new stdClass();
+                    $item->email = $resa->getEmail();
+                    array_push($emailsResa, $item);
+                }
+            }
+            $mat->emailResa = json_encode($emailsResa);
+            array_push($result, $mat);
+        }
+
         return $this->render('material/index.html.twig', [
-            'materials' => $materialRepository->findAll(),
+            'materials' => $result,
         ]);
     }
 
@@ -46,6 +71,7 @@ class MaterialController extends AbstractController
     #[Route('/{id}', name: 'app_material_show', methods: ['GET'])]
     public function show(Material $material): Response
     {
+       
         return $this->render('material/show.html.twig', [
             'material' => $material,
         ]);
@@ -74,6 +100,10 @@ class MaterialController extends AbstractController
     #[Route('/{id}', name: 'app_material_delete', methods: ['POST'])]
     public function delete(Request $request, Material $material, MaterialRepository $materialRepository, ReservationRepository $reservationRepository): Response
     {
+
+        
+
+
         $reservationsDelete = $reservationRepository->findBy(array('material' => $material->getId()));
  
         foreach($reservationsDelete as $item){

@@ -1,11 +1,11 @@
-<form id="email-{{reservation.id}}" method="post" action="{{ path('app_emailrecap', {'id': reservation.id}) }}" >
-
+<form id="email-{{reservation.id}}" method="post" action="{{ path('app_emailrecap', {'id': reservation.id}) }}" onsubmit="event.preventDefault()" >
+<button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="textEmail('{{reservation.email}}','email-{{reservation.id}}')">📧</button>
 </form>
- <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.email}}','email-{{reservation.id}}')">📧</button>
+ 
     <!-- Modal -->
 
 <script>
-function text(eleve, idFormulaire){
+function textEmail(eleve, idFormulaire){
     const text = document.querySelector('.textModal');
     const titre = document.querySelector('.modal-title');
     const id = document.querySelector('.idFormulaireBouton')

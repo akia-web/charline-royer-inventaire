@@ -1,20 +1,43 @@
-<form id="{{material.name}}-{{material.id}}" method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" >
+<form id="{{material.name}}-{{material.id}}" method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" onsubmit="event.preventDefault()">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">  
-    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}','{{material.name}}-{{material.id}}')">Supprimer</button>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}',
+    '{{material.nbReservation}}',
+    '{{material.emailResa}}',
+    '{{material.name}}-{{material.id}}')">Supprimer</button>
 </form>
 
 
 
 
 <script>
-function text(materiel, idFormulaire, e){
- 
+function text(materiel,quantity, listEmail,  idFormulaire){
+    const emails = JSON.parse(listEmail)
     const text = document.querySelector('.textModal');
     const titre = document.querySelector('.modal-title');
     const id = document.querySelector('.idFormulaireBouton')
-   
-    text.innerText = "Voulez-vous supprimer le matériel "+ materiel + "?"
+    const listEmails = document.querySelector('.textEmail');
+    const personnesResa = document.querySelector('.personnesResa');
+    const messageAttention = document.querySelector('.messageAttention');
+
+
     titre.innerText = "Suppression d'un matériel";
+    text.innerText = "Voulez-vous supprimer "+ materiel + "? "
+    if(quantity > 0){
+        let elements = "";
+        for(let i = 0 ; i<emails.length; i++){
+            elements += "<li>" + emails[i].email + "</li>"
+        }
+        personnesResa.innerText = "Personnes ayant réservé ce matériel : (" + quantity + ")" 
+        listEmails.innerHTML = elements;
+        messageAttention.innerText = "Attention, supprimer ce matériel, supprimera aussi les réservations liées à lui"
+    }else{
+        listEmails.innerText = ""
+        messageAttention.innerText = ""
+        personnesResa.innerText = ""
+    }
+
+
+ 
     id.value = idFormulaire;
 
 }

@@ -87,3 +87,19 @@ td {
 .heure {
   text-align: left;
 }
+
+.messageAttention {
+  color: red;
+  font-size: 10px;
+}
+.personnesResa,
+.textEmail {
+  font-size: 15px;
+}
+.personnesResa {
+  margin-top: 2em;
+}
+
+.blue {
+  color: rgb(85, 153, 193);
+}

@@ -44,8 +44,8 @@ class HomeController extends AbstractController
         $mailService->envoisMail($destinataire, "Rappel rendu matériel : $materiel ", $message);
         $this->addFlash("success", "Le mail à bien été envoyé à $destinataire" );
 
-
-        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+       
+        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
 
     }
 }

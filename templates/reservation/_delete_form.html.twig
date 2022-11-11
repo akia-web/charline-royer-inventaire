@@ -1,15 +1,16 @@
-<form id="reservation-{{reservation.id}}" method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" >
+<form id="reservation-{{reservation.id}}" method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="event.preventDefault()">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">  
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.material.name}}','{{reservation.email}}','reservation-{{reservation.id}}')">Supprimer</button>
 </form>
 
-<button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.material.name}}','{{reservation.email}}','reservation-{{reservation.id}}')">Supprimer</button>
+
 <script>
 function text(materiel, eleve, idFormulaire){
     const text = document.querySelector('.textModal');
     const titre = document.querySelector('.modal-title');
     const id = document.querySelector('.idFormulaireBouton')
    
-    text.innerText = "Voulez-vous supprimer la réservation de " + eleve + " pour sa réservation du matériel : " + materiel + " ?";
+    text.innerHTML = "Voulez-vous supprimer la réservation de <span class='blue'> " + eleve + "</span> pour la réservation du matériel : <strong>" + materiel + "</strong ?";
     titre.innerText = "Suppression d'une réservation";
     id.value = idFormulaire;
 
