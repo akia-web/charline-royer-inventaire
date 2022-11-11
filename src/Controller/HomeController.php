@@ -38,8 +38,9 @@ class HomeController extends AbstractController
         $dateRendu = $reservation->getRendered()->format('d-m-Y H:i:s');
         $materiel = $reservation->getMaterial()->getName();
         $message = "
-        <h1>Rappel rendu du matériel: $materiel</h1>
-        <p>Vous avez emprunté le $dateEmprunt
+        <p>Nous vous rappelons que vous avez emprunté : $materiel le $dateEmprunt</p>
+        <p> Vous devez le rendre le : $dateRendu </p>
+               
         ";
         $mailService->envoisMail($destinataire, "Rappel rendu matériel : $materiel ", $message);
         $this->addFlash("success", "Le mail à bien été envoyé à $destinataire" );
