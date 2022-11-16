@@ -1,9 +1,6 @@
 <form id="{{material.name}}-{{material.id}}" method="post" action="{{ path('app_material_delete', {'id': material.id}) }}" onsubmit="event.preventDefault()">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">  
-    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{material.name}}',
-    '{{material.nbReservation}}',
-    '{{material.emailResa}}',
-    '{{material.name}}-{{material.id}}')">Supprimer</button>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Supprimer</button>
 </form>
 
 

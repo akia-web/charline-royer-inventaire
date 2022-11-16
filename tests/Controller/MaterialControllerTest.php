@@ -21,11 +21,11 @@ class MaterialControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Material::class);
-        $this->reservationRepository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
+        // $this->reservationRepository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
 
-        foreach ($this->reservationRepository->findAll() as $object) {
-            $this->reservationRepository->remove($object, true);
-        }
+        // foreach ($this->reservationRepository->findAll() as $object) {
+        //     $this->reservationRepository->remove($object, true);
+        // }
 
         foreach ($this->repository->findAll() as $object) {
             $this->repository->remove($object, true);

@@ -105,10 +105,13 @@ class MaterialController extends AbstractController
 
 
         $reservationsDelete = $reservationRepository->findBy(array('material' => $material->getId()));
- 
-        foreach($reservationsDelete as $item){
-            $reservationRepository->remove($item, true);
+        
+        if(count($reservationsDelete)>0){
+            foreach($reservationsDelete as $item){
+                $reservationRepository->remove($item, true);
+            }
         }
+        
         
         if ($this->isCsrfTokenValid('delete'.$material->getId(), $request->request->get('_token'))) {
             $name = $material->getName();

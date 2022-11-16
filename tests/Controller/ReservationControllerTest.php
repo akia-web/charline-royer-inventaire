@@ -16,30 +16,30 @@ class ReservationControllerTest extends WebTestCase
     // private MaterialRepository $materialRepository;
     private string $path = '/reservation/';
 
-    protected function setUp(): void
-    {
-        $this->client = static::createClient();
-        $this->repository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
-        $this->materialRepository = static::getContainer()->get('doctrine')->getRepository(Material::class);
+    // protected function setUp(): void
+    // {
+    //     $this->client = static::createClient();
+    //     $this->repository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
+    //     $this->materialRepository = static::getContainer()->get('doctrine')->getRepository(Material::class);
 
-        foreach ($this->repository->findAll() as $object) {
-            $this->repository->remove($object, true);
-        }
-        // foreach ($this->materialRepository->findAll() as $object) {
-        //     $this->materialRepository->remove($object, true);
-        // }
-    }
+    //     foreach ($this->repository->findAll() as $object) {
+    //         $this->repository->remove($object, true);
+    //     }
+    //     // foreach ($this->materialRepository->findAll() as $object) {
+    //     //     $this->materialRepository->remove($object, true);
+    //     // }
+    // }
 
-    public function testIndex(): void
-    {
-        $crawler = $this->client->request('GET', $this->path);
+    // public function testIndex(): void
+    // {
+    //     $crawler = $this->client->request('GET', $this->path);
 
-        self::assertResponseStatusCodeSame(200);
-        // self::assertPageTitleContains('Reservation index');
+    //     self::assertResponseStatusCodeSame(200);
+    //     self::assertPageTitleContains('Reservation index');
 
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
-    }
+    //    // Use the $crawler to perform additional assertions e.g.
+    //  //   self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+    // }
 
     // public function testNew(): void
     // {
