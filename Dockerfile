@@ -24,6 +24,6 @@ RUN composer install
 RUN chown www-data:www-data -R .
 
 
-FROM nginx:stable-alpine AS ngnix
+FROM nginx:stable-alpine AS nginx
 COPY . /var/www/html
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
