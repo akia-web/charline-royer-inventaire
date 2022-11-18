@@ -8,10 +8,10 @@ jobs:
 
       - run: |
           docker compose up -d
-          docker compose exec website composer install
-          docker compose exec website php bin/console doctrine:database:create --env=test
-          docker compose exec website php bin/console doctrine:schema:update --env=test --force
-          docker compose exec website php bin/phpunit
+          docker compose exec inventaire composer install
+          docker compose exec inventaire php bin/console doctrine:database:create --env=test
+          docker compose exec inventaire php bin/console doctrine:schema:update --env=test --force
+          docker compose exec inventaire php bin/phpunit
   build-docker:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +27,7 @@ jobs:
           push: true
           tags: ghcr.io/akia-web/php:lastest
           target: inventaire
+
       - name: Build push nginx
         uses: docker/build-push-action@v3
         with:
