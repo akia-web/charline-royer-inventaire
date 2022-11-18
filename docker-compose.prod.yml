@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  database:
+    container_name: database
+    image: mysql:5.7
+    # command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: inventaire_projet_S1
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    # ports:
+    #   - "4306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  nginx:
+    container_name: nginx
+    image: ghcr.io/akia-web/nginx:lastest
+    ports:
+      - "8080:80"
+    depends_on:
+      - inventaire
+      - database
+
+  inventaire:
+    image: ghcr.io/akia-web/php:lastest
+    ports:
+      - "9000:9000"
+    depends_on:
+      - database
+
+volumes:
+  mysql:

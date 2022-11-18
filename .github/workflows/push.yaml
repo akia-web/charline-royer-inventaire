@@ -21,9 +21,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build push
+      - name: Build push inventaire
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: ghcr.io/akia-web/php:lastest
           target: inventaire
+      - name: Build push nginx
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ghcr.io/akia-web/nginx:lastest
+          target: nginx
