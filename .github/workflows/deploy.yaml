@@ -1,4 +1,4 @@
-name: Deploy
+name: deploy
 
 on: workflow_dispatch
 
@@ -10,10 +10,10 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      run: |
-        ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd charline-royer-inventaire && git pull"
-        ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd charline-royer-inventaire && docker compose up -d --build --force-recreate"
+      - run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd charline-royer-inventaire && git pull"
+      - run: ssh ${{ secrets.SSH_USER}}@${{ secrets.SSH_HOST }} "cd charline-royer-inventaire && docker compose up -d --build --force-recreate"
