@@ -1,5 +1,5 @@
 <form id="email-{{reservation.id}}" method="post" action="{{ path('app_emailrecap', {'id': reservation.id}) }}" onsubmit="event.preventDefault()" >
-<button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="textEmail('{{reservation.email}}','email-{{reservation.id}}')">📧</button>
+<button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="textEmail('{{reservation.studientId}}','email-{{reservation.id}}')">📧</button>
 </form>
  
     <!-- Modal -->

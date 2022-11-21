@@ -1,4 +1,4 @@
-on: [push]
+on: workflow_dispatch
 name: Build and test
 jobs:
   build:
@@ -12,25 +12,4 @@ jobs:
           docker compose exec website php bin/console doctrine:database:create --env=test
           docker compose exec website php bin/console doctrine:schema:update --env=test --force
           docker compose exec website php bin/phpunit
-  # build-docker:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: login to github container
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #     - name: Build push inventaire
-  #       uses: docker/build-push-action@v3
-  #       with:
-  #         push: true
-  #         tags: ghcr.io/akia-web/php:lastest
-  #         target: inventaire
 
-  #     - name: Build push nginx
-  #       uses: docker/build-push-action@v3
-  #       with:
-  #         push: true
-  #         tags: ghcr.io/akia-web/nginx:lastest
-  #         target: nginx

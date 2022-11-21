@@ -21,7 +21,7 @@
                 <tr>
                     <td scope="row">{{eleve.empruntDate ? eleve.empruntDate|date('d-m-Y H:i:s') : ''}}</td>
                     <td>{{eleve.rendered ? eleve.rendered|date('d-m-Y H:i:s') : ''}}</td>
-                    <td> {{eleve.email}}</td>
+                    <td> {{eleve.studientId}}</td>
                     <td>{{eleve.material.name}}</td>
                     <td> {{ include('home/_sendEmail.html.twig') }}</td>
                 </tr>

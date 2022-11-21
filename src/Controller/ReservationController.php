@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Service\ApiEleveService;
 use App\Service\MailService;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,15 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository, ApiEleveService $apiEleveService): Response
     {
+        $allReservations = $reservationRepository->findAll();
+        $allStudients = $apiEleveService->getData();
+        $result = $apiEleveService->getReservationsInformation($allReservations, $allStudients);     
+     
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
+            'reservations' => $result,
         ]);
     }
 
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationRepository $reservationRepository, MailService $mailService): Response
+    public function new(Request $request, ReservationRepository $reservationRepository, MailService $mailService, ApiEleveService $apiEleveService): Response
     {
         $_SESSION['nouveau'] = 1;
         $reservation = new Reservation();
@@ -38,25 +44,32 @@ class ReservationController extends AbstractController
             $reservation->getMaterial()->setQuantity($quantity);
             $reservationRepository->save($reservation, true);
            
-            $dateEmprunt = $reservation->getEmpruntDate()->format('d-m-Y H:i');
-            $destinataire = $reservation->getEmail();
-            $dateRendu = $reservation->getRendered()->format('d-m-Y H:i');
+            // $dateEmprunt = $reservation->getEmpruntDate()->format('d-m-Y H:i');
+            $listEleve = $apiEleveService->getData();
+            $destinataire = null;
+            foreach($listEleve as $eleve){
+                if($eleve['id'] == $reservation->getStudientId()){
+                    $destinataire = $eleve['mail'];
+                }
+            }
+            
+            // $dateRendu = $reservation->getRendered()->format('d-m-Y H:i');
             $materiel = $reservation->getMaterial()->getName();
-            $message = "
-            <h1>Nous confirmons l'emprunt du matériel : $materiel</h1>
-            <p>Informations : 
-                <ul>
-                    <li>Matériel : $materiel</li>
-                    <li>Date d'emprunt : $dateEmprunt</li>
-                    <li>Date de retour du matériel : $dateRendu</li>
-                </ul>       
-            </p>
-            <p> Merci de prendre soin de notre matériel
+            // $message = "
+            // <h1>Nous confirmons l'emprunt du matériel : $materiel</h1>
+            // <p>Informations : 
+            //     <ul>
+            //         <li>Matériel : $materiel</li>
+            //         <li>Date d'emprunt : $dateEmprunt</li>
+            //         <li>Date de retour du matériel : $dateRendu</li>
+            //     </ul>       
+            // </p>
+            // <p> Merci de prendre soin de notre matériel
            
-            ";
-            $mailService->envoisMail($destinataire, "Réservation : $materiel ", $message);
+            // ";
+            // $mailService->envoisMail($destinataire, "Réservation : $materiel ", $message);
 
-            $this->addFlash("success", "L'emprunt de $materiel pour $destinataire à bien été enregistré'" );
+            $this->addFlash("success", "L'emprunt de $materiel pour $destinataire à bien été enregistré" );
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
 

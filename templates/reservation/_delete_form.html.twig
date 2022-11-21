@@ -1,6 +1,6 @@
 <form id="reservation-{{reservation.id}}" method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="event.preventDefault()">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">  
-    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.material.name}}','{{reservation.email}}','reservation-{{reservation.id}}')">Supprimer</button>
+    <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{reservation.material.name}}','{{reservation.studientId}}','reservation-{{reservation.id}}')">Supprimer</button>
 </form>
 
 

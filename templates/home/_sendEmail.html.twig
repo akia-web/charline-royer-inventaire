@@ -1,7 +1,7 @@
 <form id="email-{{eleve.id}}" method="post" action="{{ path('app_emailrecap', {'id': eleve.id}) }}" >
 
 </form>
- <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{eleve.email}}','email-{{eleve.id}}')">📧</button>
+ <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter" onclick="text('{{eleve.studientId}}','email-{{eleve.id}}')">📧</button>
     <!-- Modal -->
 
 <script>

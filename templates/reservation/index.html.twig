@@ -28,7 +28,7 @@
                 
                 <td class="heure">{{ reservation.empruntDate ? reservation.empruntDate|date('d-m-Y' ) : '' }} <br> {{ reservation.empruntDate ? reservation.empruntDate|date('H:i' ) : '' }}</td>
                 <td class="heure">{{ reservation.rendered ? reservation.rendered|date('d-m-Y') : '' }} <br> {{ reservation.rendered ? reservation.rendered|date('H:i' ) : '' }}</td>
-                <td>{{ reservation.email }}</td>
+                <td>{{ reservation.studientId }}</td>
                 <td>{{reservation.material.name}}</td>
                 <td>{{ reservation.isRendered ? 'Oui' : 'Non' }}</td>
                 <td>

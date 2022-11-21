@@ -34,7 +34,7 @@ class MaterialController extends AbstractController
                 
                 foreach($materiel->getReservations() as $resa){
                     $item = new stdClass();
-                    $item->email = $resa->getEmail();
+                    $item->email = $resa->getStudientId();
                     array_push($emailsResa, $item);
                 }
             }
