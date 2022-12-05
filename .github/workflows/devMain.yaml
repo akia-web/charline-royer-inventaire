@@ -16,9 +16,9 @@ jobs:
           docker compose exec website php bin/console doctrine:schema:update --env=test --force
           docker compose exec website php bin/phpunit
 
-jobs:
-  sync-branch:
+  merge: 
     runs-on: ubuntu-latest
+    needs: [build] 
     steps:
       - uses: actions/checkout@master
 
